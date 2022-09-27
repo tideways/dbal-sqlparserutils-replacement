@@ -1,5 +1,6 @@
 {
     "name": "tideways/dbal-sqlparserutils-replacement",
+    "license": "MIT",
     "autoload": {
         "files": ["src/SQLParserUtils.php"],
         "psr-4": {
