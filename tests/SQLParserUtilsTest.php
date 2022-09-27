@@ -90,7 +90,7 @@ class SQLParserUtilsTest extends TestCase
                 [2 => ParameterType::STRING, 1 => ParameterType::STRING],
                 'SELECT * FROM Foo WHERE foo = ? AND bar = ? AND baz = ?',
                 [1 => 'bar', 0 => 1, 2 => 'baz'],
-                [1 => ParameterType::STRING, 2 => ParameterType::STRING, 0 => 2],
+                [1 => ParameterType::STRING, 2 => ParameterType::STRING],
             ],
             'Positional: explicit keys for array params and array types' => [
                 'SELECT * FROM Foo WHERE foo IN (?) AND bar IN (?) AND baz = ?',
@@ -362,11 +362,6 @@ class SQLParserUtilsTest extends TestCase
             [
                 'SELECT * FROM foo WHERE bar = :param',
                 ['other' => 'val'],
-                [],
-            ],
-            [
-                'SELECT * FROM foo WHERE bar = :param',
-                [],
                 [],
             ],
             [

@@ -22,6 +22,10 @@ class SQLParserUtils
      */
     public static function expandListParameters($sql, $params, $types)
     {
+        if (!self::needsArrayParameterConversion($params, $types)) {
+            return [$sql, $params, $types];
+        }
+
         if (self::$sqlParser === null) {
             self::$sqlParser = new Parser(self::$isMySQL);
         }
@@ -35,5 +39,23 @@ class SQLParserUtils
             $visitor->getParameters(),
             $visitor->getTypes(),
         ];
+    }
+
+    private static function needsArrayParameterConversion(array $params, array $types): bool
+    {
+        if (is_string(key($params))) {
+            return true;
+        }
+
+        foreach ($types as $type) {
+            if (
+                $type === Connection::PARAM_INT_ARRAY
+                || $type === Connection::PARAM_STR_ARRAY
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
